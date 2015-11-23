@@ -5,13 +5,9 @@
     <title>Fagdag 2015 - Q4</title>
     <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
     <script src="bower_components/openlayers/ol-debug.js" type="text/javascript"></script>
+    <script src="js/_mapSetup.js" type="text/javascript"></script>
     <link rel="stylesheet" href="bower_components/openlayers/ol.css" type="text/css"/>
-    <style>
-        .map {
-            height: 800px;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
 </head>
 <body>
 
@@ -20,18 +16,7 @@
 <div id="map" class="map"></div>
 
 <script type="text/javascript">
-    var map = new ol.Map({
-        target: 'map',
-        layers: [
-            new ol.layer.Tile({
-                source: new ol.source.MapQuest({layer: 'sat'})
-            })
-        ],
-        view: new ol.View({
-            center: ol.proj.fromLonLat([37.41, 8.82]),
-            zoom: 4
-        })
-    });
+    mapSetup();
 </script>
 
 </body>

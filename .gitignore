@@ -2,10 +2,13 @@
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 
+
 *.iml
+npm-debug.log
 
 ## Directory-based project format:
 .idea/
+bower_components
 # if you remove the above rule, at least ignore the following:
 
 # User-specific stuff:
