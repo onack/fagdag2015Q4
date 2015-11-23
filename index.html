@@ -25,7 +25,8 @@
 
             <section id="section_functions_plotpoint">
                 <h3>Plot point</h3>
-                <input type="button" id="plotPoint" value="Nidarosdomen" />
+                <input type="button" id="plotPointNidarosdomen" value="Nidarosdomen" />
+                <input type="button" id="plotPointVigelandsparken" value="Vigelandsparken" />
             </section>
         </section>
 
@@ -37,8 +38,7 @@
         </footer>
         <script>
             $(function() {
-                setupMap();
-                plotPoint(10.5, 63.4);
+                init();
             });
         </script>
     </body>

@@ -1,5 +1,10 @@
 var map;
 
+var init = function() {
+    this.setupMap();
+    this.buildEventListeners();
+}
+
 var setupMap = function() {
     console.log("setupMap invoked");
     var EPSG = 'EPSG:32633';
@@ -43,6 +48,18 @@ var setupMap = function() {
     });
 };
 
+var buildEventListeners = function() {
+    var $plotNidarosdomen = $("#" + "plotPointNidarosdomen");
+    $plotNidarosdomen.on("click", function() {
+        plotPoint(10.396700, 63.427029);
+    });
+
+    var $plotVigelandsparken = $("#" + "plotPointVigelandsparken");
+    $plotVigelandsparken.on("click", function() {
+        plotPoint(10.705147, 59.924484);
+    })
+};
+
 var makeLayers = function() {
     console.log("makeLayers invoked");
     var layers = [];
@@ -61,6 +78,8 @@ var makeLayers = function() {
 
     return layers;
 };
+
+
 
 var plotPoint = function(lon, lat) {
     //var projection = this.map.getView().getProjection();
