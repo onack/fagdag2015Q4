@@ -1,9 +1,11 @@
 var map;
+var layerDraw;
+var interactionDraw; // global so we can remove it later
 
 var init = function() {
     this.setupMap();
     this.buildEventListeners();
-}
+};
 
 var setupMap = function() {
     console.log("setupMap invoked");
@@ -49,6 +51,12 @@ var setupMap = function() {
 };
 
 var buildEventListeners = function() {
+    var $drawPolygon = $("#" + "drawPolygon");
+    $drawPolygon.on("click", function() {
+        map.removeInteraction(interactionDraw);
+        addDrawPolygonInteraction();
+    });
+
     var $plotNidarosdomen = $("#" + "plotPointNidarosdomen");
     $plotNidarosdomen.on("click", function() {
         plotPoint(10.396700, 63.427029);
@@ -57,7 +65,7 @@ var buildEventListeners = function() {
     var $plotVigelandsparken = $("#" + "plotPointVigelandsparken");
     $plotVigelandsparken.on("click", function() {
         plotPoint(10.705147, 59.924484);
-    })
+    });
 };
 
 var makeLayers = function() {
@@ -76,12 +84,45 @@ var makeLayers = function() {
     });
     layers.push(wms);
 
+    this.layerDraw = createLayerDraw();
+    layers.push(this.layerDraw);
+
     return layers;
 };
 
+var createLayerDraw = function() {
 
+    return new ol.layer.Vector({
+        source : new ol.source.Vector(),
+        style : new ol.style.Style({
+            fill : new ol.style.Fill({
+                color : 'rgba(255, 255, 255, 0.2)'
+            }),
+            stroke : new ol.style.Stroke({
+                color : '#ffcc33',
+                width : 2
+            }),
+            image : new ol.style.Circle({
+                radius : 7,
+                fill : new ol.style.Fill({
+                    color : '#ffcc33'
+                })
+            })
+        })
+    });
+};
+
+function addDrawPolygonInteraction() {
+
+    interactionDraw = new ol.interaction.Draw({
+        source: layerDraw.getSource(),
+        type: "Polygon"
+    });
+    map.addInteraction(interactionDraw);
+}
 
 var plotPoint = function(lon, lat) {
+    console.log("plotPoint invoked with lon: " + lon + ", lat: " + lat);
     //var projection = this.map.getView().getProjection();
     var projection = "EPSG:32633";
     var coordinateArray = proj4("EPSG:4326", projection, [lon, lat]);
@@ -111,5 +152,5 @@ var plotPoint = function(lon, lat) {
     }));
 */
 
-    this.map.getView().fit(extent, map.getSize());
+    this.map.getView().fit(extent, this.map.getSize());
 }
