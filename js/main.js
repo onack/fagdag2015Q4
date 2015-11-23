@@ -39,7 +39,7 @@ var setupMap = function() {
     ]);
 
     map = new ol.Map({
-        target: 'section_basemap',
+        target: 'section_map',
         layers: layers,
         view: new ol.View({
             projection: projection,
