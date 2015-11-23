@@ -1,17 +1,8 @@
-/*
-body {
-    width: 940px;
-    //margin: 0 auto;
-    //font: 10pt/1.5em Helvetica,"Helvetica neue", Arial, sans-serif;
-}
-*/
-
 body,
 html {
     margin: 0;
     padding: 0;
     color: #000;
-    width: 960px;
     background: lightgray;
 }
 
@@ -32,12 +23,13 @@ header {
 }
 
 #section_basemap {
-    float: right;
-    width: 600px;
-    background: deepskyblue;
+    /*float: right;*/
+    margin-left: 360px;
+    height: 800px;
+    background: lightblue;
 }
 
 footer {
     clear:both;
-    background:#cc9;
+    background: lightgreen;
 }
