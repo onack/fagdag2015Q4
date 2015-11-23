@@ -7,7 +7,7 @@
  */
 
 
-
+var features = new ol.Collection();
 
 var mapSetup = function(){
 
@@ -35,6 +35,13 @@ var mapSetup = function(){
             zoom: 3
         })
     });
+
+    //"Controls"
+
+    var interactions = makeInteractions();
+    for(var interaction in interactions) {
+        map.addInteraction(interactions[interaction]);
+    }
 };
 
 var makeLayers = function(){
@@ -52,7 +59,72 @@ var makeLayers = function(){
     });
     layers.push(wms);
 
+    var vector = new ol.layer.Vector({
+        source: new ol.source.Vector({features: features}),
+        style: createStyle()
+    });
+    layers.push(vector);
+
     return layers;
+};
+
+var createStyle = function(){
+    var styles = {};
+
+    styles['Polygon'] = [new ol.style.Style({
+        stroke: new ol.style.Stroke({
+            color: 'blue',
+            width: 3
+        }),
+        fill: new ol.style.Fill({
+            color: 'rgba(0, 0, 255, 0.1)'
+        })
+    })];
+
+
+    return function(feature, resolution) {
+        return styles[feature.getGeometry().getType()] || styles['default'];
+    };
+};
+
+var makeInteractions = function(){
+
+    var interactions = {};
+
+    var pan = new ol.interaction.DragPan({
+    });
+    pan.setActive(true);
+    interactions.pan = pan;
+
+    var edit = new ol.interaction.Modify({
+        features: features
+    });
+    edit.setActive(false);
+    interactions.edit = edit;
+
+    var draw = new ol.interaction.Draw({
+        features: features,
+        type: ol.geom.GeometryType.POLYGON
+    });
+    draw.setActive(false);
+    interactions.draw = draw;
+
+
+    for(var interaction in interactions){
+        var elem = $('#'+interaction+'_button');
+        elem.click({all:interactions, obj:interactions[interaction]},toggleControl);
+    }
+
+    return interactions;
+};
+
+var toggleControl = function(evt){
+    var interaction = evt.data.obj;
+    var interactions = evt.data.all;
+
+    for(var action in interactions){
+        interactions[action].setActive(interactions[action]===interaction);
+    }
 };
 
 

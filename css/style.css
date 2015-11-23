@@ -2,3 +2,27 @@
     height: 800px;
     width: 100%;
 }
+
+.control_button{
+    width: 70px !important;
+}
+
+#pan_div{
+    top: 150px;
+    left: .5em;
+    width: 70px;
+}
+
+#draw_div{
+    top: 180px;
+    left: .5em;
+    width: 70px;
+
+}
+
+#edit_div{
+    top: 210px;
+    left: .5em;
+    width: 70px;
+
+}
