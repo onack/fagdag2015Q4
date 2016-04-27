@@ -104,7 +104,7 @@ var makeInteractions = function(){
 
     var draw = new ol.interaction.Draw({
         features: features,
-        type: ol.geom.GeometryType.POLYGON
+        type: "Polygon"
     });
     draw.setActive(false);
     interactions.draw = draw;
